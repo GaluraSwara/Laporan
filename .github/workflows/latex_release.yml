@@ -1,0 +1,66 @@
+name: Compile LaTeX to PDF and Auto Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-latex-and-release:
+    name: Build LaTeX PDF and Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compile LaTeX Document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -file-line-error
+
+      - name: Generate Auto Tag & Release Information
+        id: vars
+        run: |
+          VERSION_TAG="v1.0.${{ github.run_number }}"
+          echo "tag=$VERSION_TAG" >> $GITHUB_OUTPUT
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Create Git Tag
+        run: |
+          git tag ${{ steps.vars.outputs.tag }}
+          git push origin ${{ steps.vars.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare PDF Output
+        run: |
+          mkdir -p output
+          cp main.pdf output/Laporan-Proyek-3-GaluraSwara-${{ steps.vars.outputs.tag }}.pdf || cp main.pdf output/Laporan-Proyek-3-GaluraSwara.pdf
+
+      - name: Create GitHub Release with PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: "Laporan Proyek 3 GaluraSwara ${{ steps.vars.outputs.tag }}"
+          body: |
+            ### 📄 Laporan Proyek 3 GaluraSwara - PDF Otomatis
+            
+            Kompilasi otomatis dokumen laporan LaTeX dari commit `${{ github.sha }}`.
+            
+            - **Tanggal Rilis:** ${{ steps.vars.outputs.date }}
+            - **Dokumen:** Laporan Proyek 3 - Sarjana Terapan Teknik Informatika ULBI
+            - **Judul:** Pengembangan Aplikasi Pemutar Musik dan Playlist Tradisional Berbasis Native Kotlin dan Gocroot (GaluraSwara)
+            
+            *Unduh berkas PDF pada lampiran di bawah ini.*
+          files: output/*.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

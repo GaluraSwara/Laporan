@@ -1,0 +1,54 @@
+\section{BAB IV: IMPLEMENTASI DAN PENGUJIAN}
+
+\subsection{Implementasi Backend Gocroot}
+Implementasi backend diwujudkan dalam bahasa Go dengan struktur modular:
+\begin{itemize}
+    \item \textbf{Modul Konfigurasi (\texttt{config/})}: Mengelola koneksi aman ke klaster MongoDB dan pengaturan kunci rahasia JSON Web Token (JWT).
+    \item \textbf{Modul Pengontrol (\texttt{controller/})}: Berisi fungsi penanganan logika bisnis untuk rute registrasi/login (\texttt{auth\_controller.go}), pengelolaan lagu (\texttt{song\_controller.go}), dan operasi manipulasi playlist (\texttt{playlist\_controller.go}).
+    \item \textbf{Modul Middleware (\texttt{middleware/})}: Mengamankan rute-rute privat melalui verifikasi header \texttt{Authorization: Bearer <token>}.
+\end{itemize}
+
+\subsection{Implementasi Dokumentasi API dan Landing Page}
+Dokumentasi API diimplementasikan pada berkas \texttt{openapi.yaml} dengan spesifikasi OpenAPI 3.0 yang merinci 17 endpoint beserta skema request-response JSON. Berkas \texttt{index.html} menyematkan antarmuka Swagger UI dengan tema warna tradisional yang serasi.
+
+Situs \texttt{galuraswara.github.io} dibangun menggunakan modul Croot.js (\texttt{main.js}). Skrip ini melakukan permintaan asinkron ke endpoint GitHub API:
+\begin{verbatim}
+https://api.github.com/repos/GaluraSwara/AndroidApp/releases/latest
+\end{verbatim}
+Fungsi \texttt{getJSON} mengambil tautan unduh APK secara langsung dan fungsi \texttt{setInner} memperbarui teks label unduhan secara dinamis tanpa perlu memuat ulang peramban.
+
+\subsection{Implementasi Aplikasi Android Native Kotlin}
+Aplikasi Android mengimplementasikan arsitektur bersih menggunakan Jetpack Compose:
+\begin{itemize}
+    \item Mesin audio dibungkus dalam kelas \texttt{MusicPlayerController} yang menginisialisasi pustaka \texttt{androidx.media3.exoplayer.ExoPlayer}.
+    \item Status pemutaran diikat secara reaktif menggunakan \texttt{StateFlow} (\texttt{currentSong}, \texttt{isPlaying}, \texttt{currentPosition}).
+    \item Komunikasi jaringan ditangani oleh Retrofit melalui antarmuka \texttt{GaluraSwaraApiService}.
+\end{itemize}
+
+\subsection{Hasil Pengujian}
+Pengujian fungsionalitas dilakukan menggunakan metode \textit{Black Box Testing} untuk memastikan seluruh fitur berjalan sesuai spesifikasi:
+
+\begin{table}[htbp]
+\centering
+\caption{Tabel Hasil Pengujian Fungsionalitas Sistem}
+\label{tab:pengujian}
+\begin{tabularx}{\textwidth}{|l|X|l|l|}
+\hline
+\textbf{No} & \textbf{Skenario Pengujian} & \textbf{Hasil yang Diharapkan} & \textbf{Status} \\
+\hline
+1 & Registrasi dan Login Pengguna & Mengembalikan token JWT yang valid & Berhasil \\
+\hline
+2 & Pengambilan Katalog Lagu & Menampilkan daftar lagu tradisional & Berhasil \\
+\hline
+3 & Pemutaran Musik di Android & Audio terputar lancar dan status bar aktif & Berhasil \\
+\hline
+4 & Interaksi Mini Player Bar & Kontrol Play/Pause merespons instan & Berhasil \\
+\hline
+5 & Akses Dokumentasi Swagger UI & Endpoint dapat diuji via browser & Berhasil \\
+\hline
+6 & Deteksi Rilis APK di Landing Page & Tombol unduh mengarah ke APK rilis terbaru & Berhasil \\
+\hline
+7 & Eksekusi CI/CD GitHub Actions & Build otomatis sukses saat commit push & Berhasil \\
+\hline
+\end{tabularx}
+\end{table}

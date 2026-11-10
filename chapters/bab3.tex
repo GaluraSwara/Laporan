@@ -1,0 +1,42 @@
+\section{BAB III: PERANCANGAN SISTEM}
+
+\subsection{Arsitektur Global Sistem}
+Sistem GaluraSwara dirancang dengan memisahkan tanggung jawab modul secara jelas (\textit{separation of concerns}). Hubungan antar komponen sistem digambarkan dalam diagram alir arsitektur berikut:
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox{0.85\textwidth}{\centering
+\vspace{0.5cm}
+\textbf{[Landing Page: galuraswara.github.io]}\\[0.2cm]
+$\downarrow$ \textit{(Link unduh APK)}\\[0.2cm]
+\textbf{[Aplikasi Android: AndroidApp]} $\longleftrightarrow$ \textbf{[Backend REST API: Go Fiber]} $\longleftrightarrow$ \textbf{[MongoDB]}\\[0.2cm]
+$\uparrow$ \textit{(Spesifikasi Endpoint)}\\[0.2cm]
+\textbf{[Dokumentasi API: apidocs (Swagger UI)]}
+\vspace{0.5cm}
+}}
+\caption{Diagram Arsitektur Ekosistem GaluraSwara}
+\label{fig:arsitektur}
+\end{figure}
+
+\subsection{Perancangan Basis Data}
+Basis data GaluraSwara pada MongoDB terdiri dari tiga koleksi utama:
+\begin{enumerate}
+    \item \textbf{Koleksi \texttt{users}}: Menyimpan data akun pengguna (\texttt{id}, \texttt{username}, \texttt{email}, \texttt{password} yang di-hash dengan bcrypt, \texttt{full\_name}, \texttt{created\_at}).
+    \item \textbf{Koleksi \texttt{songs}}: Menyimpan data rekaman musik (\texttt{id}, \texttt{title}, \texttt{artist}, \texttt{album}, \texttt{genre}, \texttt{duration}, \texttt{cover\_url}, \texttt{audio\_url}).
+    \item \textbf{Koleksi \texttt{playlists}}: Menyimpan daftar putar (\texttt{id}, \texttt{name}, \texttt{description}, \texttt{cover\_url}, \texttt{user\_id}, \texttt{songs} berupa array of ObjectId, \texttt{is\_public}).
+\end{enumerate}
+
+\subsection{Perancangan Antarmuka Pengguna Android}
+Antarmuka Android GaluraSwara dirancang menggunakan konsep etnik Sunda/Nusantara dengan panduan warna utama kayu jati (\textit{Wood Primary} \texttt{\#4A2E18}) dan aksen kuningan/tembaga (\textit{Brass Accent} \texttt{\#D4A373}). Komponen antarmuka terdiri atas:
+\begin{itemize}
+    \item \textbf{Song List Screen}: Menampilkan katalog lagu tradisional beserta tombol putar instan.
+    \item \textbf{Playlist Screen}: Menampilkan kumpulan kartu daftar putar tematik kebudayaan.
+    \item \textbf{Mini Player Bar}: Tampilan pemutar mengambang (\textit{floating bar}) di bagian bawah layar yang menyajikan status lagu yang sedang dimainkan dan tombol kontrol Play/Pause.
+\end{itemize}
+
+\subsection{Perancangan Alur Otomatisasi (CI/CD Workflows)}
+Sistem memiliki dua alur kerja GitHub Actions otomatis:
+\begin{enumerate}
+    \item \textbf{Workflow Backend Deploy}: Dipicu saat terjadi \texttt{push} ke repositori Backend $\rightarrow$ kompilasi binary Go untuk target Linux AMD64 $\rightarrow$ pengiriman file via SSH SCP ke direktori Alwaysdata $\rightarrow$ restart layanan melalui Alwaysdata API.
+    \item \textbf{Workflow Android Release}: Dipicu saat terjadi \texttt{push} ke repositori AndroidApp $\rightarrow$ kompilasi APK release melalui Gradle $\rightarrow$ pembuatan git tag versi baru secara otomatis (\texttt{v1.0.x}) $\rightarrow$ penerbitan rilis di GitHub Releases dengan lampiran berkas APK.
+\end{enumerate}

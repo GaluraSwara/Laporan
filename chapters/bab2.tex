@@ -1,0 +1,20 @@
+\section{BAB II: TINJAUAN PUSTAKA}
+
+\subsection{Arsitektur Micro-Framework Gocroot dan Go Fiber}
+Bahasa pemrograman Go (Golang) dikenal memiliki keunggulan konkurensi melalui \textit{goroutine} serta konsumsi memori yang sangat rendah. Go Fiber merupakan salah satu \textit{web framework} terpopuler dalam ekosistem Go yang terinspirasi oleh Express.js, berjalan di atas mesin HTTP tercepat (Fasthttp). 
+
+GoCroot (\textit{Greatly Optimized Cloud Resource Operation and Orchestration Transformer}) adalah pola arsitektur dan struktur boiler-plate berbasis Go yang dirancang untuk membangun layanan web dan REST API yang modular, mudah dideploy ke berbagai platform berbiaya hemat (seperti Alwaysdata atau serverless), dan terintegrasi mulus dengan MongoDB.
+
+\subsection{Basis Data NoSQL MongoDB}
+MongoDB merupakan sistem manajemen basis data berbasis dokumen (NoSQL) yang menyimpan data dalam format JSON/BSON. Fleksibilitas skema dokumen memudahkan penanganan relasi data audio yang dinamis, seperti daftar lagu dalam playlist, atribut metadata lagu (judul, artis, album, durasi), serta riwayat akun pengguna.
+
+\subsection{Native Kotlin dan AndroidX Media3 (ExoPlayer)}
+Kotlin telah ditetapkan sebagai bahasa resmi dan utama oleh Google untuk pengembangan aplikasi Android Native. Fitur modern seperti \textit{Null Safety}, \textit{Coroutines}, dan deklarasi antarmuka deklaratif Jetpack Compose memungkinkan kode ditulis lebih ringkas, aman, dan berperforma tinggi.
+
+AndroidX Media3 merupakan pustaka standar industri terkini dari Google yang menggabungkan kemampuan pemutaran media ExoPlayer dengan antarmuka sesi (\textit{MediaSession}). Media3 menjamin pemutaran media berjalan mulus di latar belakang tanpa terganggu siklus hidup (\textit{lifecycle}) tampilan antarmuka pengguna.
+
+\subsection{Croot.js (JSCroot)}
+Croot.js atau JSCroot adalah pustaka JavaScript berbasis modul murni (ES6+ Modules) berkonsep \textit{zero-build} dan \textit{zero-install}. Croot.js memungkinkan manipulasi elemen Document Object Model (DOM) dan konsumsi API HTTP asinkron (\texttt{getJSON}, \texttt{setInner}, \texttt{onClick}) langsung di peramban tanpa memerlukan kompilasi rumit seperti Webpack atau npm.
+
+\subsection{Continuous Integration dan Continuous Deployment (CI/CD)}
+CI/CD adalah praktik rekayasa perangkat lunak yang mengotomatisasi tahap pengujian, kompilasi paket aplikasi, dan proses deployment ke server produksi setiap kali ada pembaruan kode pada sistem kontrol versi (Git). Pada proyek ini, GitHub Actions digunakan sebagai orkestrator pipeline otomatis.

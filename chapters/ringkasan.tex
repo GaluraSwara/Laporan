@@ -1,0 +1,14 @@
+\section*{RINGKASAN EKSEKUTIF}
+\addcontentsline{toc}{section}{RINGKASAN EKSEKUTIF}
+
+Kekayaan seni musik tradisional Nusantara, khususnya seni karawitan dan tembang Sunda, menghadapi tantangan pelestarian di tengah pesatnya perkembangan platform hiburan digital modern. Sebagian besar generasi muda mengalami kesulitan dalam mengakses katalog musik tradisional berkualitas tinggi yang tersaji dalam format aplikasi masa kini yang mudah digunakan dan hemat kuota. 
+
+Proyek 3 ini bertujuan merancang dan mengimplementasikan sistem ekosistem terpadu \textbf{GaluraSwara}, sebuah platform pemutar musik dan playlist tradisional Nusantara yang mencakup empat komponen utama:
+\begin{enumerate}
+    \item \textbf{Aplikasi Klien Android (AndroidApp)}: Dibangun secara \textit{native} menggunakan bahasa pemrograman Kotlin dan Jetpack Compose dengan mesin pemutar audio AndroidX Media3 (ExoPlayer), dilengkapi saluran distribusi otomatis melalui \textit{Auto Tag \& GitHub Releases}.
+    \item \textbf{Layanan Backend REST API (Backend)}: Menggunakan kerangka kerja \textit{Gocroot} berbasis Go Fiber dan basis data NoSQL MongoDB, dengan integrasi \textit{Continuous Integration / Continuous Deployment} (CI/CD) menuju platform Alwaysdata.
+    \item \textbf{Dokumentasi API Interaktif (apidocs)}: Berbasis spesifikasi standar OpenAPI 3.0 dan antarmuka Swagger UI yang disajikan sebagai situs web statis di GitHub Pages.
+    \item \textbf{Landing Page Promosi (galuraswara.github.io)}: Situs publikasi berbasis \textit{Croot.js} berkonsep \textit{zero-build} yang menyediakan tautan unduh APK dinamis secara \textit{real-time} dari GitHub Releases.
+\end{enumerate}
+
+Hasil pengujian fungsionalitas dan integrasi menunjukkan bahwa sistem GaluraSwara berhasil menghubungkan klien seluler dengan backend secara aman melalui autentikasi JWT, menyajikan alunan musik latar secara responsif, dan menyederhanakan alur rilis aplikasi ke pengguna akhir.

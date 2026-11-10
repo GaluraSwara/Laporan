@@ -1,0 +1,33 @@
+\section{BAB I: PENDAHULUAN}
+
+\subsection{Latar Belakang}
+Warisan seni budaya tradisional Indonesia, seperti Degung Sunda, Tembang Cianjuran, Kliningan, hingga Gamelan Jawa, memuat nilai-nilai kearifan lokal yang luhur dan memiliki fungsi relaksasi serta pendidikan budi pekerti. Namun demikian, ketersediaan media pemutar musik digital yang secara khusus didesain untuk menonjolkan estetika musik tradisional masih sangat terbatas. Mayoritas platform streaming komersial mencampurkan katalog musik daerah dengan musik populer internasional, sehingga sulit bagi pecinta seni tradisional maupun generasi muda untuk menemukan koleksi yang tersusun rapi dalam kategori playlist budaya yang tepat.
+
+Seiring dengan tuntutan kompetensi mahasiswa program studi Sarjana Terapan Teknik Informatika pada mata kuliah Proyek 3 di Universitas Logistik dan Bisnis Internasional (ULBI), diperlukan pengembangan sebuah solusi perangkat lunak terintegrasi secara penuh (\textit{end-to-end}). Solusi ini mencakup perancangan arsitektur backend berkinerja tinggi, perancangan antarmuka pengguna (\textit{frontend} web), pembuatan aplikasi seluler \textit{native}, serta penerapan otomatisasi alur kerja modern berbasis DevOps (CI/CD). Oleh karena itu, proyek \textbf{GaluraSwara} dirancang untuk menjawab tantangan tersebut.
+
+\subsection{Rumusan Masalah}
+Berdasarkan latar belakang yang telah dipaparkan, rumusan masalah dalam Proyek 3 ini adalah:
+\begin{enumerate}
+    \item Bagaimana merancang arsitektur backend REST API yang ringan, cepat, dan handal menggunakan kerangka kerja Go Fiber (Gocroot) dan MongoDB untuk melayani permintaan data katalog lagu dan playlist?
+    \item Bagaimana membangun aplikasi Android \textit{native} menggunakan Kotlin dan AndroidX Media3 (ExoPlayer) yang menyajikan pengalaman pemutaran audio berlatar belakang (\textit{background playback}) yang stabil dan efisien?
+    \item Bagaimana mengimplementasikan alur CI/CD otomatis untuk deployment server Alwaysdata serta \textit{autotag} dan \textit{release} paket binary APK melalui GitHub Actions?
+    \item Bagaimana merancang antarmuka dokumentasi API (OpenAPI 3.0 / Swagger UI) dan \textit{landing page} responsif menggunakan Croot.js yang terhubung dinamis ke rilis APK terbaru?
+\end{enumerate}
+
+\subsection{Tujuan Proyek}
+Tujuan yang hendak dicapai melalui pengerjaan proyek ini adalah:
+\begin{enumerate}
+    \item Mengembangkan layanan backend GaluraSwara berbasis Go Fiber dan MongoDB yang siap dideploy secara otomatis ke server Alwaysdata.
+    \item Membangun aplikasi Android Native Kotlin dengan antarmuka Jetpack Compose dan integrasi audio player AndroidX Media3 yang nyaman digunakan.
+    \item Mengimplementasikan sistem dokumentasi terbuka berbasis OpenAPI 3.0 yang dapat diakses secara statis melalui GitHub Pages.
+    \item Membangun situs promosi (\textit{landing page}) menggunakan Croot.js dengan kemampuan mendeteksi rilis APK terbaru secara otomatis dari GitHub Releases API.
+\end{enumerate}
+
+\subsection{Batasan Masalah}
+Batasan masalah pada pengembangan sistem GaluraSwara adalah sebagai berikut:
+\begin{enumerate}
+    \item Aplikasi Android difokuskan pada sistem operasi Android versi 7.0 (API Level 24) ke atas.
+    \item Format media audio yang didukung mencakup berkas MPEG-3 (.mp3) dan AAC.
+    \item Penyimpanan basis data menggunakan MongoDB, dan server aplikasi menggunakan lingkungan hosting Alwaysdata.
+    \item Dokumentasi API dihosting menggunakan GitHub Pages pada repositori \texttt{apidocs}.
+\end{enumerate}
